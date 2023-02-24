@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>livro_receitas.Application</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\livro-receitas.Comunicacao\livro-receitas.Comunicacao.csproj" />
+    <ProjectReference Include="..\..\Shared\livro-receitas.Exceptions\livro-receitas.Exceptions.csproj" />
+    <ProjectReference Include="..\livro-receitas.Domain\livro-receitas.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
