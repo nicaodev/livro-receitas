@@ -1,3 +1,6 @@
+using livro_receitas.Domain.Extensions;
+using livro_receitas.Infrastructure.Migrations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,4 +25,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+AtualizarBD();
+
 app.Run();
+
+void AtualizarBD()
+{
+    var DefaultNameDatabase = builder.Configuration.GetDefaultNameDatabase();
+    var DefaultConnection = builder.Configuration.GetDefaultConnection();
+
+    Database.CriarDatabase(DefaultConnection, DefaultNameDatabase);
+}

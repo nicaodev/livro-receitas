@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Shared\livro-receitas.Comunicacao\livro-receitas.Comunicacao.csproj" />
     <ProjectReference Include="..\..\Shared\livro-receitas.Exceptions\livro-receitas.Exceptions.csproj" />
     <ProjectReference Include="..\livro-receitas.Application\livro-receitas.Application.csproj" />
+    <ProjectReference Include="..\livro-receitas.Infrastructure\livro-receitas.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
