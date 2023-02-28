@@ -12,7 +12,7 @@ public static class Database
         var param = new DynamicParameters();
         param.Add("nome", nomeDatabase);
 
-        var registros = minhaConexao.Query("SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = @nome", param);
+        var registros = minhaConexao.Query("SELECT * FROM SYS.DATABASES WHERE NAME= @nome", param);
 
         if (!registros.Any())
         {

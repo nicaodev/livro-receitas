@@ -1,4 +1,5 @@
 using livro_receitas.Domain.Extensions;
+using livro_receitas.Infrastructure;
 using livro_receitas.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRepositorio(builder.Configuration);
 
 var app = builder.Build();
 
@@ -35,4 +38,6 @@ void AtualizarBD()
     var DefaultConnection = builder.Configuration.GetDefaultConnection();
 
     Database.CriarDatabase(DefaultConnection, DefaultNameDatabase);
+
+    app.MigrateBancoDeDados();
 }
