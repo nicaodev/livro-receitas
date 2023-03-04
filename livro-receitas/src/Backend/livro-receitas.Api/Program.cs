@@ -1,3 +1,4 @@
+using livro_receitas.Api.Filter;
 using livro_receitas.Domain.Extensions;
 using livro_receitas.Infrastructure;
 using livro_receitas.Infrastructure.Migrations;
@@ -12,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositorio(builder.Configuration);
+
+builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions))); // Qualquer exception lançada será capturada pela classe FilterExceptions
 
 var app = builder.Build();
 

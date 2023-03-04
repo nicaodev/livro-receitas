@@ -1,12 +1,15 @@
 ﻿using livro_receitas.Comunicacao.Request;
+using livro_receitas.Exceptions.ExceptionsBase;
 
 namespace livro_receitas.Application.UseCases.Usuario.Registrar;
 
 public class RegistrarUsuarioUserCase
 {
-    public Task Executar(RequestRegistrarUsuarioJson request)
+    public async Task Executar(RequestRegistrarUsuarioJson request)
     {
-        throw new Exception(); // retirar
+        Validar(request);
+
+        // Salvar no Banco de dados...
     }
 
     private void Validar(RequestRegistrarUsuarioJson request)
@@ -16,8 +19,8 @@ public class RegistrarUsuarioUserCase
 
         if (!resultado.IsValid)
         {
-            var msgError = resultado.Errors.Select(e => e.ErrorMessage);
-            throw new Exception();
+            var msgError = resultado.Errors.Select(e => e.ErrorMessage).ToList();
+            throw new ErroValidacaoException(msgError);
         }
     }
 }

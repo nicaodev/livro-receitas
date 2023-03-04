@@ -79,6 +79,15 @@ namespace livro_receitas.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erro desconhecido..
+        /// </summary>
+        public static string ERRO_DESCONHECIDO {
+            get {
+                return ResourceManager.GetString("ERRO_DESCONHECIDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O Nome do usuário não pode estar em branco..
         /// </summary>
         public static string NOME_USUARIO_EM_BRANCO {

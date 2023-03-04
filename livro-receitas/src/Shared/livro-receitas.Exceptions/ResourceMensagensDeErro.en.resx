@@ -123,6 +123,9 @@
   <data name="EMAIL_USUARIO_INVALIDO" xml:space="preserve">
     <value>The email must be valid.</value>
   </data>
+  <data name="ERRO_DESCONHECIDO" xml:space="preserve">
+    <value>Unknow Error.</value>
+  </data>
   <data name="NOME_USUARIO_EM_BRANCO" xml:space="preserve">
     <value>The user's name is required.</value>
   </data>
