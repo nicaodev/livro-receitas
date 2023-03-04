@@ -8,16 +8,16 @@ namespace livro_receitas.Api.Controllers;
 public class WeatherForecastController : ControllerBase
 {
     [HttpGet(Name = "WeatherForecast")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromServices] IRegistrarUsuarioUserCase useCase)
     {
-        var useCase = new RegistrarUsuarioUserCase();
-
         await useCase.Executar(new Comunicacao.Request.RequestRegistrarUsuarioJson
         {
+            Email = "teste@gmail.com",
+            Nome = "Nicolas",
+            Senha = "minhaSenha",
+            Telefone = "61 9 9328-4511"
         });
 
         return Ok();
     }
 }
-
-
