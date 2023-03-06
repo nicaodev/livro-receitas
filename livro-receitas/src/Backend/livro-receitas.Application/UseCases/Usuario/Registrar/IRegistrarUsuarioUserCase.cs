@@ -1,4 +1,5 @@
 ﻿using livro_receitas.Comunicacao.Request;
+using livro_receitas.Comunicacao.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace livro_receitas.Application.UseCases.Usuario.Registrar
 {
     public interface IRegistrarUsuarioUserCase
     {
-        Task Executar(RequestRegistrarUsuarioJson request);
+        Task<ResponseUsuarioRegistradoJson> Executar(RequestRegistrarUsuarioJson request);
     }
 }

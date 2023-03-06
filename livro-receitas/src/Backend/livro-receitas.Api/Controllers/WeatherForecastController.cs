@@ -10,7 +10,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "WeatherForecast")]
     public async Task<IActionResult> Get([FromServices] IRegistrarUsuarioUserCase useCase)
     {
-        await useCase.Executar(new Comunicacao.Request.RequestRegistrarUsuarioJson
+        var resposta = await useCase.Executar(new Comunicacao.Request.RequestRegistrarUsuarioJson
         {
             Email = "teste@gmail.com",
             Nome = "Nicolas",
@@ -18,6 +18,6 @@ public class WeatherForecastController : ControllerBase
             Telefone = "61 9 9328-4511"
         });
 
-        return Ok();
+        return Ok(resposta);
     }
 }
