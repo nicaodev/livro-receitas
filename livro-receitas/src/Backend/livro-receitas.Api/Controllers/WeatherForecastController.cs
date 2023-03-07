@@ -1,33 +1,23 @@
+using livro_receitas.Application.UseCases.Usuario.Registrar;
 using Microsoft.AspNetCore.Mvc;
 
-namespace livro_receitas.Api.Controllers
+namespace livro_receitas.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [HttpGet(Name = "WeatherForecast")]
+    public async Task<IActionResult> Get([FromServices] IRegistrarUsuarioUserCase useCase)
     {
-        private static readonly string[] Summaries = new[]
+        var resposta = await useCase.Executar(new Comunicacao.Request.RequestRegistrarUsuarioJson
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+            Email = "teste@gmail.com",
+            Nome = "Nicolas",
+            Senha = "minhaSenha",
+            Telefone = "61 9 9328-4511"
+        });
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+        return Ok(resposta);
     }
 }
