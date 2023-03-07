@@ -120,6 +120,9 @@
   <data name="EMAIL_EM_BRANCO" xml:space="preserve">
     <value>O e-mail deve ser informado.</value>
   </data>
+  <data name="EMAIL_JA_CADASTRADO" xml:space="preserve">
+    <value>E-MAIL JA CADASTRADADO.</value>
+  </data>
   <data name="EMAIL_USUARIO_INVALIDO" xml:space="preserve">
     <value>O e-mail deve ser válido.</value>
   </data>

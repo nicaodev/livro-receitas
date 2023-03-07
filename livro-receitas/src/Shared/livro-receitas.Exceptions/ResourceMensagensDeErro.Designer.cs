@@ -70,6 +70,15 @@ namespace livro_receitas.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-MAIL JA CADASTRADADO..
+        /// </summary>
+        public static string EMAIL_JA_CADASTRADO {
+            get {
+                return ResourceManager.GetString("EMAIL_JA_CADASTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O e-mail deve ser válido..
         /// </summary>
         public static string EMAIL_USUARIO_INVALIDO {
