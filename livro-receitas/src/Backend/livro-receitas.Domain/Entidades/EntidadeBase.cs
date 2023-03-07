@@ -1,8 +1,7 @@
-﻿namespace livro_receitas.Domain.Entidades
+﻿namespace livro_receitas.Domain.Entidades;
+
+public class EntidadeBase
 {
-    public class EntidadeBase
-    {
-        public int Id { get; set; }
-        public DateTime DataCriacao { get; set; }
-    }
+    public long Id { get; set; }
+    public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
 }
