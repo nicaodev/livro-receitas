@@ -1,10 +1,11 @@
 using AutoMapper;
 using livro_receitas.Api.Filter;
+using livro_receitas.Application;
 using livro_receitas.Application.Services;
 using livro_receitas.Domain.Extensions;
 using livro_receitas.Infrastructure;
+using livro_receitas.Infrastructure.AcessoRepository;
 using livro_receitas.Infrastructure.Migrations;
-using livro_receitas.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,10 +48,22 @@ app.Run();
 
 void AtualizarBD()
 {
-    var DefaultNameDatabase = builder.Configuration.GetDefaultNameDatabase();
-    var DefaultConnection = builder.Configuration.GetDefaultConnection();
+    using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-    Database.CriarDatabase(DefaultConnection, DefaultNameDatabase);
+    using var context = serviceScope.ServiceProvider.GetService<LivroReceitasContext>();
 
-    app.MigrateBancoDeDados();
+    bool? databaseInMemory = context?.Database?.ProviderName?.Equals("Microsoft.EntityFrameworkCore.InMemory");
+
+    if (!databaseInMemory.HasValue || !databaseInMemory.Value)
+    {
+        var DefaultNameDatabase = builder.Configuration.GetDefaultNameDatabase();
+        var DefaultConnection = builder.Configuration.GetDefaultConnection();
+
+        Database.CriarDatabase(DefaultConnection, DefaultNameDatabase);
+
+        app.MigrateBancoDeDados();
+    }
 }
+
+public partial class Program
+{ }
