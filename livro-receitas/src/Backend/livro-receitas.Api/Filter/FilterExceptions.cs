@@ -29,7 +29,7 @@ public class FilterExceptions : IExceptionFilter
         }
         else if (context.Exception is LoginInvalidoException)
         {
-
+            TratarErroLoginException(context);
         }
     }
 
