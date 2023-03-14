@@ -97,6 +97,15 @@ namespace livro_receitas.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O e-mail e/ou senha estão incorretos. .
+        /// </summary>
+        public static string LOGIN_INVALIDO {
+            get {
+                return ResourceManager.GetString("LOGIN_INVALIDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O Nome do usuário não pode estar em branco..
         /// </summary>
         public static string NOME_USUARIO_EM_BRANCO {
