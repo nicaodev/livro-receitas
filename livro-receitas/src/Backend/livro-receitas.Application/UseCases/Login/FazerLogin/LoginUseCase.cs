@@ -32,7 +32,7 @@ public class LoginUseCase : ILoginUseCase
         return new ResponseLoginJson
         {
             Nome = user.Nome,
-            Token = _tokenController.GerarToken(request.Email)
+            Token = _tokenController.GerarToken(user.Email)
         };
     }
 }
