@@ -23,10 +23,15 @@ public static class Bootstrapper
 
     private static void AddContext(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<LivroReceitasContext>(opt =>
+        bool.TryParse(configuration.GetSection("Configuracoes:BancoDeDadosInMemory").Value, out bool BancoDeDadosInMemory);
+
+        if (!BancoDeDadosInMemory)
         {
-            opt.UseSqlServer(configuration.GetFullConfigConnection(), b => b.MigrationsAssembly(typeof(LivroReceitasContext).Assembly.FullName));
-        });
+            services.AddDbContext<LivroReceitasContext>(opt =>
+            {
+                opt.UseSqlServer(configuration.GetFullConfigConnection(), b => b.MigrationsAssembly(typeof(LivroReceitasContext).Assembly.FullName));
+            });
+        }
     }
 
     private static void AddUnityOfWork(IServiceCollection services)
@@ -42,7 +47,12 @@ public static class Bootstrapper
 
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddFluentMigratorCore().ConfigureRunner(c => c.AddSqlServer().WithGlobalConnectionString(configuration.GetFullConfigConnection())
+        bool.TryParse(configuration.GetSection("Configuracoes:BancoDeDadosInMemory").Value, out bool BancoDeDadosInMemory);
+
+        if (!BancoDeDadosInMemory)
+        {
+            services.AddFluentMigratorCore().ConfigureRunner(c => c.AddSqlServer().WithGlobalConnectionString(configuration.GetFullConfigConnection())
         .ScanIn(Assembly.Load("livro-receitas.Infrastructure")).For.All());
+        }
     }
 }
