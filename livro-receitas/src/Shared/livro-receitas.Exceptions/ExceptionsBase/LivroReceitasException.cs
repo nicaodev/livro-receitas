@@ -2,4 +2,8 @@
 
 public class LivroReceitasException : SystemException
 {
+    public LivroReceitasException(string Message): base(Message)
+    {
+        
+    }
 }
