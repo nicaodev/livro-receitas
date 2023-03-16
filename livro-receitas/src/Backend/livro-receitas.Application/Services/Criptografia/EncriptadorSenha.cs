@@ -12,7 +12,7 @@ public class EncriptadorSenha
     {
         _chaveExtraEncriptador = chaveExtraEncriptador;
     }
-    public string Criptografia(string senha)
+    public string Criptografar(string senha)
     {
         var senhaComChaveAdicional = $"{senha}{_chaveExtraEncriptador}";
 
