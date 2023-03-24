@@ -14,8 +14,8 @@ public class ControllerBase : IClassFixture<LivroReceitaWebApplicationFactory<Pr
     public ControllerBase(LivroReceitaWebApplicationFactory<Program> factory)
     {
         _httpClient = factory.CreateClient();
-        ResourceMensagensDeErro.Culture = new CultureInfo("pt-BR");
-        //ResourceMensagensDeErro.Culture = CultureInfo.CurrentCulture;
+        //ResourceMensagensDeErro.Culture = new CultureInfo("pt-BR");
+        ResourceMensagensDeErro.Culture = CultureInfo.CurrentCulture;
     }
 
     protected async Task<HttpResponseMessage> PostRequest(string metodo, object body)
