@@ -2,7 +2,9 @@
 
 namespace livro_receitas.Domain.Repositories;
 
-public interface IUpdateOnlyRepository
+public interface IUsuarioUpdateOnlyRepository
 {
     void Update(Usuario usuario);
+
+    Task<Usuario> RecuperarPorId(long id);
 }

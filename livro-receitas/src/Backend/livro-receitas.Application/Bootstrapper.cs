@@ -1,6 +1,8 @@
 ﻿using livro_receitas.Application.Services.Criptografia;
 using livro_receitas.Application.Services.Token;
+using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Application.UseCases.Login.FazerLogin;
+using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,12 @@ public static class Bootstrapper
         AddChaveAdicionalSenha(services, configuration);
         AddTokenJWT(services, configuration);
         AddUseCases(services);
+        AddUserLogado(services);
+    }
+
+    private static void AddUserLogado(IServiceCollection services)
+    {
+        services.AddScoped<IUsuarioLogado, UsuarioLogado>();
     }
 
     private static void AddChaveAdicionalSenha(IServiceCollection services, IConfiguration configuration)
@@ -34,6 +42,7 @@ public static class Bootstrapper
     public static void AddUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegistrarUsuarioUserCase, RegistrarUsuarioUserCase>()
-        .AddScoped<ILoginUseCase, LoginUseCase>();
+        .AddScoped<ILoginUseCase, LoginUseCase>()
+        .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>();
     }
 }

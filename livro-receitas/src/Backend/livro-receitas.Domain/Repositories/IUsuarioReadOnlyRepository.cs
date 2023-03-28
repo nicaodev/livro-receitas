@@ -6,4 +6,5 @@ public interface IUsuarioReadOnlyRepository
 {
     Task<bool> ExisteUsuario(string email);
     Task<Usuario> RecuperarPorEmailESenha(string email, string senha);
+    Task<Usuario> RecuperarPorEmail(string email);
 }
