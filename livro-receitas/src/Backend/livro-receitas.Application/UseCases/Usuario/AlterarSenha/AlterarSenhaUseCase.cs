@@ -2,9 +2,7 @@
 using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Domain.Repositories;
-using livro_receitas.Exceptions;
 using livro_receitas.Exceptions.ExceptionsBase;
-using System.Net.Http.Headers;
 
 namespace livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 
@@ -12,14 +10,15 @@ internal class AlterarSenhaUseCase : IAlterarSenhaUseCase
 {
     private IUsuarioUpdateOnlyRepository _repo;
     private IUsuarioLogado _userLogado;
-
     private readonly EncriptadorSenha _encriptadorSenha;
+    private readonly IUnityOfWork _unityOfWork;
 
-    public AlterarSenhaUseCase(IUsuarioUpdateOnlyRepository repo, IUsuarioLogado userLogado, EncriptadorSenha encriptadorSenha)
+    public AlterarSenhaUseCase(IUsuarioUpdateOnlyRepository repo, IUsuarioLogado userLogado, EncriptadorSenha encriptadorSenha, IUnityOfWork unityOfWork)
     {
         _repo = repo;
         _userLogado = userLogado;
         _encriptadorSenha = encriptadorSenha;
+        _unityOfWork = unityOfWork;
     }
 
     public async Task Executar(RequestAlterarSenhaJson request)
@@ -33,6 +32,8 @@ internal class AlterarSenhaUseCase : IAlterarSenhaUseCase
         usuario.Senha = _encriptadorSenha.Criptografar(request.NovaSenha);
 
         _repo.Update(usuario);
+
+        await _unityOfWork.Commit();
     }
 
     private void Validar(RequestAlterarSenhaJson request, Domain.Entidades.Usuario usuario)
@@ -46,7 +47,6 @@ internal class AlterarSenhaUseCase : IAlterarSenhaUseCase
         {
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("senhaAtual", "Senha Atual Inválida"));
         }
-
 
         if (!resultado.IsValid)
         {
