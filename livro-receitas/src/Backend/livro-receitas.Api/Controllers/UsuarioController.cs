@@ -1,3 +1,5 @@
+using livro_receitas.Api.Filter;
+using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Comunicacao.Response;
@@ -14,5 +16,16 @@ public class UsuarioController : LivroDeReceitasController
         var retorno = await useCase.Executar(request);
 
         return Created(string.Empty, retorno);
+    }
+
+    [HttpPut]
+    [Route("alterar-senha")]
+    [ServiceFilter(typeof(UsuarioAutenticadoAtribute))] //Somente este endpoint precisará estar autenticado.
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> AlterarSenha([FromServices] IAlterarSenhaUseCase useCase, [FromBody] RequestAlterarSenhaJson request)
+    {
+        await useCase.Executar(request);
+
+        return NoContent();
     }
 }

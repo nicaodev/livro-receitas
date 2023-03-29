@@ -8,6 +8,9 @@ namespace WebApi.Test;
 
 public class LivroReceitaWebApplicationFactory<T> : WebApplicationFactory<T> where T : class
 {
+
+    private livro_receitas.Domain.Entidades.Usuario _usuario;
+    private string _senha;
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -34,6 +37,18 @@ public class LivroReceitaWebApplicationFactory<T> : WebApplicationFactory<T> whe
 
                 database.Database.EnsureDeleted();
 
+
+                (_usuario, _senha) = ContextSeedInMemory.Seed(database);
             });
+    }
+
+    public livro_receitas.Domain.Entidades.Usuario retornaUsuarioCriadoInMemory()
+    {
+        return _usuario;
+    }
+
+    public string retornaSenhaUsuarioCriadoInMemory()
+    {
+        return _senha;
     }
 }
