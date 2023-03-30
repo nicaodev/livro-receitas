@@ -1,5 +1,6 @@
 using AutoMapper;
 using livro_receitas.Api.Filter;
+using livro_receitas.Api.Middleware;
 using livro_receitas.Application;
 using livro_receitas.Application.Services;
 using livro_receitas.Domain.Extensions;
@@ -19,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddRepositorio(builder.Configuration);
+builder.Services.AddInfraestructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions))); // Qualquer exception lançada será capturada pela classe FilterExceptions
@@ -48,6 +49,8 @@ app.MapControllers();
 
 AtualizarBD();
 
+app.UseMiddleware<CultureMiddleware>();
+
 app.Run();
 
 void AtualizarBD()
@@ -69,5 +72,9 @@ void AtualizarBD()
     }
 }
 
+// Desabilitando erros que podem surgir no sonar.
+#pragma warning disable CA1050, S3903, S1118
 public partial class Program
 { }
+
+#pragma warning restore CA1050, S3903, S1118
