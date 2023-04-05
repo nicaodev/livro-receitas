@@ -2,6 +2,7 @@
 using livro_receitas.Application.Services.Token;
 using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Application.UseCases.Login.FazerLogin;
+using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +44,7 @@ public static class Bootstrapper
     {
         services.AddScoped<IRegistrarUsuarioUserCase, RegistrarUsuarioUserCase>()
         .AddScoped<ILoginUseCase, LoginUseCase>()
-        .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>();
+        .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>()
+        .AddScoped<IRegistrarReceitaUseCase, RegistrarReceitaUseCase>();
     }
 }
