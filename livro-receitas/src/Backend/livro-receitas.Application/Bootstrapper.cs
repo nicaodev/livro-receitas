@@ -42,7 +42,7 @@ public static class Bootstrapper
     }
     private static void AddHashIds(IServiceCollection services, IConfiguration configuration)
     {
-        var salt = configuration.GetRequiredSection("Configuracoes:HashId");
+        var salt = configuration.GetRequiredSection("Configuracoes:HashIds");
         services.AddHashids(setup =>
         {
             setup.Salt = salt.Value;
