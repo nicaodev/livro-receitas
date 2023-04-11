@@ -14,4 +14,6 @@ public class Receita : EntidadeBase
     public string ModoPreparo { get; set; }
 
     public ICollection<Ingrediente> Ingredientes { get; set; }
+
+    public long UsuarioId { get; set; }
 }

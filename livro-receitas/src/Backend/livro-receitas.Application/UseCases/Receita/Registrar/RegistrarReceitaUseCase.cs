@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Comunicacao.Request;
+using livro_receitas.Comunicacao.Response;
+using livro_receitas.Domain.Entidades;
 using livro_receitas.Domain.Repositories;
 using livro_receitas.Domain.Repositories.Receita;
 using livro_receitas.Exceptions.ExceptionsBase;
@@ -22,9 +24,21 @@ public class RegistrarReceitaUseCase : IRegistrarReceitaUseCase
         _receitaWriteOnlyRepository = receitaWriteOnlyRepository;
     }
 
-    public async Task Executar(RequestRegistarReceitaJson request)
+    public async Task<ResponseReceitaJson> Executar(RequestRegistarReceitaJson request)
     {
         Validar(request);
+        var userLogado = await _usuarioLogado.RecuperarUser();
+
+        var receita = _mapper.Map<Domain.Entidades.Receita>(request);
+
+        receita.UsuarioId = userLogado.Id;
+
+
+        await _receitaWriteOnlyRepository.Registrar(receita);
+
+        await _unityOfWork.Commit();
+
+        return _mapper.Map<ResponseReceitaJson>(request); ;
     }
 
     private void Validar(RequestRegistarReceitaJson request)

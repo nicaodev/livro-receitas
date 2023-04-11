@@ -1,4 +1,5 @@
 using AutoMapper;
+using HashidsNet;
 using livro_receitas.Api.Filter;
 using livro_receitas.Api.Middleware;
 using livro_receitas.Application;
@@ -27,7 +28,7 @@ builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions))); // Qu
 
 builder.Services.AddScoped(provider => new MapperConfiguration(cfg =>
 {
-    cfg.AddProfile(new AutoMapperConfiguration());
+    cfg.AddProfile(new AutoMapperConfiguration(provider.GetService<IHashids>()));
 }).CreateMapper());
 
 builder.Services.AddScoped<UsuarioAutenticadoAtribute>();
