@@ -1,6 +1,7 @@
 ﻿using livro_receitas.Application.Services.Criptografia;
 using livro_receitas.Application.Services.Token;
 using livro_receitas.Application.Services.UsuarioLogado;
+using livro_receitas.Application.UseCases.Dashboard;
 using livro_receitas.Application.UseCases.Login.FazerLogin;
 using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
@@ -54,6 +55,7 @@ public static class Bootstrapper
         services.AddScoped<IRegistrarUsuarioUserCase, RegistrarUsuarioUserCase>()
         .AddScoped<ILoginUseCase, LoginUseCase>()
         .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>()
-        .AddScoped<IRegistrarReceitaUseCase, RegistrarReceitaUseCase>();
+        .AddScoped<IRegistrarReceitaUseCase, RegistrarReceitaUseCase>()
+        .AddScoped<IDashboard, Dashboard>();
     }
 }
