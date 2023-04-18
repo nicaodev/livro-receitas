@@ -1,4 +1,6 @@
-﻿using livro_receitas.Api.Filter;
+﻿using AspNetCore.Hashids.Mvc;
+using livro_receitas.Api.Filter;
+using livro_receitas.Application.UseCases.Receita.RecuperarPorId;
 using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Comunicacao.Response;
@@ -16,5 +18,15 @@ public class ReceitasController : LivroDeReceitasController
         var resposta = await useCase.Executar(request);
 
         return Created(string.Empty, resposta);
+    }
+
+    [HttpGet]
+    [Route("{id:hashids}")]
+    [ProducesResponseType(typeof(ResponseReceitaJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> RecuperarPorId([FromServices] IRecuperarReceitaPorIdUseCase useCase, [FromRoute] [ModelBinder(typeof(HashidsModelBinder))] long id)
+    {
+        var resposta = await useCase.Executar(id);
+
+        return Ok(resposta);
     }
 }
