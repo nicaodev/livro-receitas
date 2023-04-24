@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using livro_receitas.Application.Services.UsuarioLogado;
+using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Domain.Repositories;
 using livro_receitas.Domain.Repositories.Receita;
@@ -28,7 +29,7 @@ public class AtualizarReceitaUseCase : IAtualizarReceitaUseCase
 
         var receita = await _repository.RecuperarPorId(id);
 
-        Validar(userLogado, receita);
+        Validar(userLogado, receita, request);
         _mapper.Map(request, receita);
 
         _repository.Update(receita);
@@ -37,9 +38,19 @@ public class AtualizarReceitaUseCase : IAtualizarReceitaUseCase
     }
 
 
-    private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita)
+    private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita, RequestRegistarReceitaJson request)
     {
         if (receita == null || receita.UsuarioId != userLogado.Id)
             throw new ErroValidacaoException(new List<string> { "Produto não encontrado." });
+
+        var validator = new AtualizarReceitaValidator();
+
+        var resultado = validator.Validate(request);
+
+        if (!resultado.IsValid)
+        {
+            var msg = resultado.Errors.Select(c => c.ErrorMessage).ToList();
+            throw new ErroValidacaoException(msg);
+        }
     }
 }
