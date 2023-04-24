@@ -1,7 +1,11 @@
 ﻿using livro_receitas.Application.Services.Criptografia;
 using livro_receitas.Application.Services.Token;
 using livro_receitas.Application.Services.UsuarioLogado;
+using livro_receitas.Application.UseCases.Dashboard;
 using livro_receitas.Application.UseCases.Login.FazerLogin;
+using livro_receitas.Application.UseCases.Receita.Atualizar;
+using livro_receitas.Application.UseCases.Receita.RecuperarPorId;
+using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +18,7 @@ public static class Bootstrapper
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         AddChaveAdicionalSenha(services, configuration);
+        AddHashIds(services, configuration);
         AddTokenJWT(services, configuration);
         AddUseCases(services);
         AddUserLogado(services);
@@ -38,11 +43,23 @@ public static class Bootstrapper
 
         services.AddScoped(opt => new TokenController(int.Parse(sectionTempoVidaToken.Value), sectionKey.Value));
     }
-
+    private static void AddHashIds(IServiceCollection services, IConfiguration configuration)
+    {
+        var salt = configuration.GetRequiredSection("Configuracoes:HashIds");
+        services.AddHashids(setup =>
+        {
+            setup.Salt = salt.Value;
+            setup.MinHashLength = 3;
+        });
+    }
     public static void AddUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegistrarUsuarioUserCase, RegistrarUsuarioUserCase>()
         .AddScoped<ILoginUseCase, LoginUseCase>()
-        .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>();
+        .AddScoped<IAlterarSenhaUseCase, AlterarSenhaUseCase>()
+        .AddScoped<IRegistrarReceitaUseCase, RegistrarReceitaUseCase>()
+        .AddScoped<IDashboard, Dashboard>()
+        .AddScoped<IRecuperarReceitaPorIdUseCase, RecuperarReceitaPorIdUseCase>()
+        .AddScoped<IAtualizarReceitaUseCase, AtualizarReceitaUseCase>();
     }
 }
