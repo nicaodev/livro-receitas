@@ -40,7 +40,7 @@ public class AtualizarReceitaUseCase : IAtualizarReceitaUseCase
 
     private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita, RequestRegistarReceitaJson request)
     {
-        if (receita == null || receita.UsuarioId != userLogado.Id)
+        if (receita is null || receita.UsuarioId != userLogado.Id)
             throw new ErroValidacaoException(new List<string> { "Produto não encontrado." });
 
         var validator = new AtualizarReceitaValidator();
