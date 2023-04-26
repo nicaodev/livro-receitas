@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using livro_receitas.Comunicacao.Request;
+using livro_receitas.Domain.Extensions;
 
 namespace livro_receitas.Application.UseCases.Receita.Registrar;
 
@@ -19,7 +20,7 @@ public class RegistarReceitaValidator : AbstractValidator<RequestRegistarReceita
 
         RuleFor(x => x.Ingredientes).Custom((ingredientes, contexto) =>
         {
-            var produtosDistintos = ingredientes.Select(c => c.Produto).Distinct();
+            var produtosDistintos = ingredientes.Select(c => c.Produto.RemoverAcentos().ToLower()).Distinct();
             if (produtosDistintos.Count() != ingredientes.Count())
             {
                 contexto.AddFailure(new FluentValidation.Results.ValidationFailure("Ingredientes", "Há valores repetidos."));

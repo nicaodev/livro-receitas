@@ -17,7 +17,7 @@ public class LivroReceitaWebApplicationFactory<T> : WebApplicationFactory<T> whe
             .ConfigureServices(services =>
             {
                 var descritor = services.SingleOrDefault(d => d.ServiceType == typeof(LivroReceitasContext));
-                if (descritor != null)
+                if (descritor is not null)
                     services.Remove(descritor);
 
                 var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();

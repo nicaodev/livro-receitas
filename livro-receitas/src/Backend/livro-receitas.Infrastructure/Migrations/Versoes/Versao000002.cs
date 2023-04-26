@@ -34,6 +34,6 @@ public class Versao000002 : Migration
         table
             .WithColumn("Produto").AsString(100).NotNullable()
             .WithColumn("Quantidade").AsString().NotNullable().
-            WithColumn("ReceitaId").AsInt64().NotNullable().ForeignKey("FK_Ingrediente_Receita_Id", "Receitas", "Id");
+            WithColumn("ReceitaId").AsInt64().NotNullable().ForeignKey("FK_Ingrediente_Receita_Id", "Receitas", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade);
     }
 }
