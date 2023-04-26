@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace livro_receitas.Application.UseCases.Receita.Registrar;
-public class AtualizarReceitaValidator : AbstractValidator<RequestRegistarReceitaJson>
+namespace livro_receitas.Application.UseCases.Receita.Atualizar;
+public class AtualizarReceitaValidator : AbstractValidator<RequestReceitaJson>
 {
     public AtualizarReceitaValidator()
     {

@@ -22,7 +22,7 @@ public class AutoMapperConfiguration : Profile
     {
         CreateMap<RequestRegistrarUsuarioJson, Usuario>().ForMember(destino => destino.Senha, config => config.Ignore()); //Fazendo criptografia na regra de negocio
 
-        CreateMap<RequestRegistarReceitaJson, Receita>();
+        CreateMap<RequestReceitaJson, Receita>();
         CreateMap<RequestRegistrarIngredienteJson, Ingrediente>();
     }
 

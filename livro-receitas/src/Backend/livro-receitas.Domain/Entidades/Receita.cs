@@ -12,6 +12,7 @@ public class Receita : EntidadeBase
     public Categoria Categoria { get; set; }
 
     public string ModoPreparo { get; set; }
+    public int TempoPeparo { get; set; }
 
     public ICollection<Ingrediente> Ingredientes { get; set; }
 

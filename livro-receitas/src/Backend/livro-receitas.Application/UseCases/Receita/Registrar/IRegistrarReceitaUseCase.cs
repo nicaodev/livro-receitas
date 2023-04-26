@@ -5,5 +5,5 @@ namespace livro_receitas.Application.UseCases.Receita.Registrar;
 
 public interface IRegistrarReceitaUseCase
 {
-    Task<ResponseReceitaJson> Executar(RequestRegistarReceitaJson request);
+    Task<ResponseReceitaJson> Executar(RequestReceitaJson request);
 }

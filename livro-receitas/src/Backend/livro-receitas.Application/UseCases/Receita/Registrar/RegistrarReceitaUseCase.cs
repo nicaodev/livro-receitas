@@ -24,7 +24,7 @@ public class RegistrarReceitaUseCase : IRegistrarReceitaUseCase
         _receitaWriteOnlyRepository = receitaWriteOnlyRepository;
     }
 
-    public async Task<ResponseReceitaJson> Executar(RequestRegistarReceitaJson request)
+    public async Task<ResponseReceitaJson> Executar(RequestReceitaJson request)
     {
         Validar(request);
         var userLogado = await _usuarioLogado.RecuperarUser();
@@ -41,7 +41,7 @@ public class RegistrarReceitaUseCase : IRegistrarReceitaUseCase
         return _mapper.Map<ResponseReceitaJson>(request); ;
     }
 
-    private void Validar(RequestRegistarReceitaJson request)
+    private void Validar(RequestReceitaJson request)
     {
         var validator = new RegistarReceitaValidator();
 
