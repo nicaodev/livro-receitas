@@ -3,6 +3,7 @@ using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Comunicacao.Enum;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Comunicacao.Response;
+using livro_receitas.Domain.Extensions;
 using livro_receitas.Domain.Repositories.Receita;
 
 namespace livro_receitas.Application.UseCases.Dashboard;
@@ -44,10 +45,10 @@ public class Dashboard : IDashboard
 
         if (!string.IsNullOrWhiteSpace(request.TituloOuIngrediente))
         {
-            receitasFiltradas = receitas.Where(r => r.Titulo.Contains(request.TituloOuIngrediente)
+            receitasFiltradas = receitas.Where(r => r.Titulo.CompararSemconsiderarAcentoECaseSensitive(request.TituloOuIngrediente)
             ||
-            r.Ingredientes.Any(ingre => ingre.Produto.Contains(request.TituloOuIngrediente))).ToList();
+            r.Ingredientes.Any(ingre => ingre.Produto.CompararSemconsiderarAcentoECaseSensitive(request.TituloOuIngrediente))).ToList();
         }
-        return receitasFiltradas;
+        return receitasFiltradas.OrderBy(c => c.Titulo).ToList();
     }
 }

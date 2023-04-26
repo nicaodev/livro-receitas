@@ -3,4 +3,5 @@
 public interface IReceitaWriteOnlyRepository
 {
     Task Registrar(Entidades.Receita receita);
+    Task Deletar(long id);
 }

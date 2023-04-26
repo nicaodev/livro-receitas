@@ -10,7 +10,7 @@ public class UnidadeDeTrabalhoBuilder
 
     public UnidadeDeTrabalhoBuilder()
     {
-        if (_repo == null)
+        if (_repo is null)
             _repo = new Mock<IUnityOfWork>();
     }
 

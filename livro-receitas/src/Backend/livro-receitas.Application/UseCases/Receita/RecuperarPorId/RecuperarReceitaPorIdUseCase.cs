@@ -31,7 +31,7 @@ public class RecuperarReceitaPorIdUseCase : IRecuperarReceitaPorIdUseCase
 
     private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita)
     {
-        if (receita == null || receita.UsuarioId != userLogado.Id)
+        if (receita is null || receita.UsuarioId != userLogado.Id)
             throw new ErroValidacaoException(new List<string> { "Produto não encontrado." });
     }
 }
