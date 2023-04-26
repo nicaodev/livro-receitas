@@ -1,5 +1,6 @@
 using livro_receitas.Api.Filter;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
+using livro_receitas.Application.UseCases.Usuario.RecuperarPerfil;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using livro_receitas.Comunicacao.Request;
 using livro_receitas.Comunicacao.Response;
@@ -27,5 +28,15 @@ public class UsuarioController : LivroDeReceitasController
         await useCase.Executar(request);
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponsePerfilUsuarioJson), StatusCodes.Status200OK)]
+    [ServiceFilter(typeof(UsuarioAutenticadoAtribute))] //Somente este endpoint precisará estar autenticado.
+    public async Task<IActionResult> RecuperarPerfilLogado([FromServices] IRecuperarPerfilUseCase useCase)
+    {
+        var retorno = await useCase.Executar();
+
+        return Ok(retorno);
     }
 }
