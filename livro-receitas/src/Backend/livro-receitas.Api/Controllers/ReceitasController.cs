@@ -1,5 +1,5 @@
 ﻿using AspNetCore.Hashids.Mvc;
-using livro_receitas.Api.Filter;
+using livro_receitas.Api.Filter.UsuarioLogado;
 using livro_receitas.Application.UseCases.Receita.Atualizar;
 using livro_receitas.Application.UseCases.Receita.Deletar;
 using livro_receitas.Application.UseCases.Receita.RecuperarPorId;
