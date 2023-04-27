@@ -1,6 +1,7 @@
 ﻿using FluentMigrator.Runner;
 using livro_receitas.Domain.Extensions;
 using livro_receitas.Domain.Repositories;
+using livro_receitas.Domain.Repositories.Codigo;
 using livro_receitas.Domain.Repositories.Receita;
 using livro_receitas.Infrastructure.AcessoRepository;
 using livro_receitas.Infrastructure.AcessoRepository.Repository;
@@ -47,7 +48,8 @@ public static class Bootstrapper
             AddScoped<IUsuarioUpdateOnlyRepository, UsuarioRepository>().
             AddScoped<IReceitaWriteOnlyRepository, ReceitaRepository>().
             AddScoped<IReceitaReadOnlyRepository, ReceitaRepository>().
-            AddScoped<IUpdateOnlyRepository, ReceitaRepository>();
+            AddScoped<IUpdateOnlyRepository, ReceitaRepository>().
+            AddScoped<ICodigoWriteOnlyRepository, CodigoRepository>();
     }
 
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
