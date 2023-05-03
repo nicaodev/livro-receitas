@@ -22,7 +22,7 @@ public class Broadcaster
         var conexao = new Conexao(hubContext, connectionId);
         _dictionary.TryAdd(connectionId, conexao);
 
-        conexao.IniciarContagemTempo();
+        conexao.IniciarContagemTempo(CallBackExpirado);
     }
 
     private void CallBackExpirado(string connectionId)
