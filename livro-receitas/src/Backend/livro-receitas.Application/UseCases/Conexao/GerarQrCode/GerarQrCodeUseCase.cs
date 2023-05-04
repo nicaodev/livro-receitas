@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HashidsNet;
 using livro_receitas.Application.Services.UsuarioLogado;
 using livro_receitas.Domain.Entidades;
 using livro_receitas.Domain.Repositories;
@@ -12,12 +13,14 @@ public class GerarQrCodeUseCase : IGerarQrCodeUseCase
     private readonly ICodigoWriteOnlyRepository _repository;
     private readonly IUsuarioLogado _usuarioLogado;
     private readonly IUnityOfWork _wow;
+    private readonly IHashids _hashids;
 
-    public GerarQrCodeUseCase(ICodigoWriteOnlyRepository repository, IUsuarioLogado usuarioLogado, IUnityOfWork wow)
+    public GerarQrCodeUseCase(ICodigoWriteOnlyRepository repository, IUsuarioLogado usuarioLogado, IUnityOfWork wow, IHashids hashids)
     {
         _repository = repository;
         _usuarioLogado = usuarioLogado;
         _wow = wow;
+        _hashids = hashids;
     }
 
     public async Task<string> Executar()

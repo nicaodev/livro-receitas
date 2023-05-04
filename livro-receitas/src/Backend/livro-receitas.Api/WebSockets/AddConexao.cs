@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace livro_receitas.Api.WebSockets;
+
 [Authorize(Policy = "PoliticaUsuarioLogado")]
 public class AddConexao : Hub
 {
@@ -31,5 +32,10 @@ public class AddConexao : Hub
         var x = Context.ConnectionId;
 
         return base.OnConnectedAsync();
+    }
+
+    public async Task RecurarConexao()
+    {
+        var connectionIdUsuarioQueGerouQrCode = Context.ConnectionId;
     }
 }

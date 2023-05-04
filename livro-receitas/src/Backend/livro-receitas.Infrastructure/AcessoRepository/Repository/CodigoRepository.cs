@@ -13,6 +13,16 @@ public class CodigoRepository : ICodigoWriteOnlyRepository
         _context = context;
     }
 
+    public async Task Deletar(long userId)
+    {
+        var codigos = await _context.Codigos.Where(c => c.UsuarioId == userId).ToListAsync();
+
+        if (codigos.Any())
+        {
+            _context.Codigos.RemoveRange(codigos);
+        }
+    }
+
     public async Task Registrar(Codigos codigo)
     {
         var codigoBancoDeDados = await _context.Codigos.FirstOrDefaultAsync(c => c.UsuarioId == codigo.UsuarioId);
