@@ -22,7 +22,7 @@ public class AutoMapperConfiguration : Profile
     {
         CreateMap<RequestRegistrarUsuarioJson, Usuario>().ForMember(destino => destino.Senha, config => config.Ignore()); //Fazendo criptografia na regra de negocio
 
-        CreateMap<RequestRegistarReceitaJson, Receita>();
+        CreateMap<RequestReceitaJson, Receita>();
         CreateMap<RequestRegistrarIngredienteJson, Ingrediente>();
     }
 
@@ -33,6 +33,8 @@ public class AutoMapperConfiguration : Profile
 
         CreateMap<Receita, ResponseReceitasDashboardJson>().ForMember(destino => destino.Id, config => config.MapFrom(origem => _hashids.EncodeLong(origem.Id)))
             .ForMember(destino => destino.QuantidadeIngredientes, config => config.MapFrom(origem => origem.Ingredientes.Count()));
+
+        CreateMap<Usuario, ResponsePerfilUsuarioJson>();
 
     }
 }

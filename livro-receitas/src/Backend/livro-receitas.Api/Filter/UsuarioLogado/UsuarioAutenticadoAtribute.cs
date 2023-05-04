@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 
-namespace livro_receitas.Api.Filter;
+namespace livro_receitas.Api.Filter.UsuarioLogado;
 
 public class UsuarioAutenticadoAtribute : AuthorizeAttribute, IAsyncAuthorizationFilter
 {
@@ -40,7 +40,7 @@ public class UsuarioAutenticadoAtribute : AuthorizeAttribute, IAsyncAuthorizatio
         }
     }
 
-    private string TokenNaRequisicao(AuthorizationFilterContext context)
+    private static string TokenNaRequisicao(AuthorizationFilterContext context)
     {
         var authorization = context.HttpContext.Request.Headers["Authorization"].ToString();
 
@@ -51,11 +51,11 @@ public class UsuarioAutenticadoAtribute : AuthorizeAttribute, IAsyncAuthorizatio
         return authorization["Bearer".Length..].Trim();
     }
 
-    private void TokenExpirado(AuthorizationFilterContext context)
+    private static void TokenExpirado(AuthorizationFilterContext context)
     {
         context.Result = new UnauthorizedObjectResult(new ResponseError("Token expirado."));
     }
-    private void UsuarioSemPermissao(AuthorizationFilterContext context)
+    private static void UsuarioSemPermissao(AuthorizationFilterContext context)
     {
         context.Result = new UnauthorizedObjectResult(new ResponseError("Usuario sem permissão de acesso."));
     }

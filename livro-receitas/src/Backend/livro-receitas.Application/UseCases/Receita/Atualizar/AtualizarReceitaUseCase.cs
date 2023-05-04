@@ -23,7 +23,7 @@ public class AtualizarReceitaUseCase : IAtualizarReceitaUseCase
         _unityOfWork = wow;
     }
 
-    public async Task Executar(long id, RequestRegistarReceitaJson request)
+    public async Task Executar(long id, RequestReceitaJson request)
     {
         var userLogado = await _usuarioLogado.RecuperarUser();
 
@@ -38,7 +38,7 @@ public class AtualizarReceitaUseCase : IAtualizarReceitaUseCase
     }
 
 
-    private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita, RequestRegistarReceitaJson request)
+    private void Validar(Domain.Entidades.Usuario userLogado, Domain.Entidades.Receita receita, RequestReceitaJson request)
     {
         if (receita is null || receita.UsuarioId != userLogado.Id)
             throw new ErroValidacaoException(new List<string> { "Produto não encontrado." });

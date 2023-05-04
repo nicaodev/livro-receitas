@@ -11,6 +11,7 @@ public class LivroReceitasContext : DbContext
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Receita> Receitas{ get; set; }
+    public DbSet<Codigos> Codigos{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

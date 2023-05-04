@@ -4,5 +4,5 @@ namespace livro_receitas.Application.UseCases.Receita.Atualizar;
 
 public interface IAtualizarReceitaUseCase
 {
-    Task Executar(long id, RequestRegistarReceitaJson request);
+    Task Executar(long id, RequestReceitaJson request);
 }

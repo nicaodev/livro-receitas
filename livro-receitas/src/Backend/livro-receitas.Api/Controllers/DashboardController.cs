@@ -1,4 +1,4 @@
-using livro_receitas.Api.Filter;
+using livro_receitas.Api.Filter.UsuarioLogado;
 using livro_receitas.Application.UseCases.Dashboard;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
 using livro_receitas.Application.UseCases.Usuario.Registrar;

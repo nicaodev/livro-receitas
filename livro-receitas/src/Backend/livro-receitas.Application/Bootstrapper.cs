@@ -1,6 +1,8 @@
 ﻿using livro_receitas.Application.Services.Criptografia;
 using livro_receitas.Application.Services.Token;
 using livro_receitas.Application.Services.UsuarioLogado;
+using livro_receitas.Application.UseCases.Conexao.GerarQrCode;
+using livro_receitas.Application.UseCases.Conexao.RecusarConexao;
 using livro_receitas.Application.UseCases.Dashboard;
 using livro_receitas.Application.UseCases.Login.FazerLogin;
 using livro_receitas.Application.UseCases.Receita.Atualizar;
@@ -8,6 +10,7 @@ using livro_receitas.Application.UseCases.Receita.Deletar;
 using livro_receitas.Application.UseCases.Receita.RecuperarPorId;
 using livro_receitas.Application.UseCases.Receita.Registrar;
 using livro_receitas.Application.UseCases.Usuario.AlterarSenha;
+using livro_receitas.Application.UseCases.Usuario.RecuperarPerfil;
 using livro_receitas.Application.UseCases.Usuario.Registrar;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +65,9 @@ public static class Bootstrapper
         .AddScoped<IDashboard, Dashboard>()
         .AddScoped<IRecuperarReceitaPorIdUseCase, RecuperarReceitaPorIdUseCase>()
         .AddScoped<IAtualizarReceitaUseCase, AtualizarReceitaUseCase>()
-        .AddScoped<IDeletarReceitaUseCase, DeletarReceitaUseCase>();
+        .AddScoped<IDeletarReceitaUseCase, DeletarReceitaUseCase>()
+        .AddScoped<IRecuperarPerfilUseCase, RecuperarPerfilUseCase>()
+        .AddScoped<IGerarQrCodeUseCase, GerarQrCodeUseCase>()
+        .AddScoped<IRecusarConexaoUseCase, RecusarConexaoUseCase>();
     }
 }
