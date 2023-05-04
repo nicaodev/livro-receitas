@@ -4,7 +4,7 @@ using livro_receitas.Domain.Extensions;
 
 namespace livro_receitas.Application.UseCases.Receita.Registrar;
 
-public class RegistarReceitaValidator : AbstractValidator<RequestRegistarReceitaJson>
+public class RegistarReceitaValidator : AbstractValidator<RequestReceitaJson>
 {
     public RegistarReceitaValidator()
     {
@@ -12,6 +12,7 @@ public class RegistarReceitaValidator : AbstractValidator<RequestRegistarReceita
         RuleFor(x => x.Categoria).IsInEnum();
         RuleFor(x => x.ModoPreparo).NotEmpty();
         RuleFor(x => x.Ingredientes).NotEmpty();
+        RuleFor(x => x.TempoPreparo).InclusiveBetween(1, 500);
         RuleForEach(x => x.Ingredientes).ChildRules(ingrediente =>
         {
             ingrediente.RuleFor(x => x.Produto).NotEmpty();

@@ -1,5 +1,5 @@
 ﻿using AspNetCore.Hashids.Mvc;
-using livro_receitas.Api.Filter;
+using livro_receitas.Api.Filter.UsuarioLogado;
 using livro_receitas.Application.UseCases.Receita.Atualizar;
 using livro_receitas.Application.UseCases.Receita.Deletar;
 using livro_receitas.Application.UseCases.Receita.RecuperarPorId;
@@ -15,7 +15,7 @@ public class ReceitasController : LivroDeReceitasController
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseReceitaJson), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Registrar([FromServices] IRegistrarReceitaUseCase useCase, [FromBody] RequestRegistarReceitaJson request)
+    public async Task<IActionResult> Registrar([FromServices] IRegistrarReceitaUseCase useCase, [FromBody] RequestReceitaJson request)
     {
         var resposta = await useCase.Executar(request);
 
@@ -35,7 +35,7 @@ public class ReceitasController : LivroDeReceitasController
     [HttpPut]
     [Route("{id:hashids}")]
     [ProducesResponseType(typeof(ResponseReceitaJson), StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Atualizar([FromServices] IAtualizarReceitaUseCase useCase,[FromBody] RequestRegistarReceitaJson request, [FromRoute][ModelBinder(typeof(HashidsModelBinder))] long id)
+    public async Task<IActionResult> Atualizar([FromServices] IAtualizarReceitaUseCase useCase,[FromBody] RequestReceitaJson request, [FromRoute][ModelBinder(typeof(HashidsModelBinder))] long id)
     {
          await useCase.Executar(id, request);
 
